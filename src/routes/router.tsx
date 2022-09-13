@@ -1,14 +1,14 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Cart from '~/pages/Cart'
-import Favorite from '~/pages/Favorite'
-import Login from '~/pages/Login'
-import Main from '~/pages/Main'
-import MyPage from '~/pages/MyPage'
-import Order from '~/pages/Order'
-import ProductDetail from '~/pages/ProductDetail'
-import Signup from '~/pages/Signup'
-import NotFound from '~/components/NotFound'
+import Cart from '../pages/Cart'
+import Favorite from '../pages/Favorite'
+import Login from '../pages/Login'
+import Main from '../pages/Main'
+import MyPage from '../pages/MyPage'
+import Order from '../pages/Order'
+import ProductDetail from '../pages/ProductDetail'
+import Signup from '../pages/Signup'
+import NotFound from '../components/NotFound'
 
 const Router = () => {
   return (

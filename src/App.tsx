@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Router from './routes/Router'
+import Router from './routes/router'
 
 function App() {
   return (
