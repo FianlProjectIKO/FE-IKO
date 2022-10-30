@@ -1,22 +1,22 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
-import Event from '../components/event/MainEvent'
-import Recommend from '../components/main/Recommend'
-import Banner from './../components/Banner'
-import CardContainer from '../components/main/CardContainer'
-import NoticePage from './NoticePage'
-import MainReview from '../components/review/MainReview'
-import FilterBar from '../components/main/filterbar/FilterBar'
-import { useRefreshToken } from '../components/auth/hooks/useRefreshToken'
-import { getStoredToken } from '../components/local-storage/userStorage'
-import MobileFilter from '../components/main/filterbar/mobile/MobileFilter'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { filterOptionState } from '../store/filterVallue'
-import MainCartModal from '../components/main/MainCartModal'
-import Footer from '../components/footer/Footer'
-import { filteredProudcts } from '../store/filterVallue'
+import { useRefreshToken } from '../components/auth/hooks/useRefreshToken'
 import { useUser } from '../components/auth/hooks/useUser'
+import Event from '../components/event/MainEvent'
+import Footer from '../components/footer/Footer'
+import { getStoredToken } from '../components/local-storage/userStorage'
+import CardContainer from '../components/main/CardContainer'
+import FilterBar from '../components/main/filterbar/FilterBar'
+import MobileFilter from '../components/main/filterbar/mobile/MobileFilter'
 import { useGetNewProduct, useGetProductsList } from '../components/main/hooks/useProductLists'
+import MainCartModal from '../components/main/MainCartModal'
+import Recommend from '../components/main/Recommend'
+import MainReview from '../components/review/MainReview'
+import { filterOptionState } from '../store/filterVallue'
+import { filteredProudcts } from '../store/filterVallue'
+import Banner from './../components/Banner'
 import { filterOpenState } from './../store/filterOpen'
+import NoticePage from './NoticePage'
 
 const Main = () => {
   const refreshToken = useRefreshToken()
@@ -29,7 +29,7 @@ const Main = () => {
   const [allProductCurrentPage, setAllProductCurrentPage] = useState(1)
   const [newProductCurrentPage, setNewProductCurrentPage] = useState(1)
 
-  const [currentPost, setCurrentPost] = useState<[]>([])
+  const [currentPost, setCurrentPost] = useState([])
   const indexOfLast = newProductCurrentPage * 8
   const indexOfStart = indexOfLast - 8
   const { user } = useUser()
@@ -70,6 +70,7 @@ const Main = () => {
     allProductCurrentPage,
     user ? user?.memberId : 0
   )
+
   const { data: newProductLists, isFetching: newProductFetching } = useGetNewProduct(
     user ? user?.memberId : 0
   )
@@ -83,7 +84,6 @@ const Main = () => {
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside)
-    return () => document.removeEventListener('click', handleClickOutside)
   }, [])
 
   useEffect(() => {

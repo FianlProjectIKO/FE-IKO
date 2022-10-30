@@ -1,6 +1,5 @@
 import { Outlet, useLocation } from 'react-router'
 import PageLayout from '../components/common/ui/PageLayout'
-
 import ViewMoreBtn from '../components/main/common/ViewMoreBtn'
 import MainNotice from '../components/main/notice/MainNotice'
 import NoticeTitle from '../components/main/notice/NoticeTitle'

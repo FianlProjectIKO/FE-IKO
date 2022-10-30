@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import { addFavorite, useDeleteFavorite } from './../main/hooks/useFavorite'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { MainCartFavoriteId, MainCartModalState, ItemDetail } from '../../store/mainCart'
+import { useMutation } from 'react-query'
+import { useNavigate } from 'react-router-dom'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { CurrentInnerWidth } from '../../store/currentInnerWidth'
+import { ItemDetail, MainCartModalState } from '../../store/mainCart'
 import { useUser } from '../auth/hooks/useUser'
 import { getProductDetails } from '../ProductDetail/hooks/useProductDetails'
-import { useMutation } from 'react-query'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { addFavorite, useDeleteFavorite } from './../main/hooks/useFavorite'
 import useToast from './toast/hooks/useToast'
 
 interface PropsType {
@@ -14,11 +15,11 @@ interface PropsType {
 }
 
 function CartAndHeart({ productId, isFavorite }: PropsType) {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  const windowWidth = useRecoilValue(CurrentInnerWidth)
   const [onHeartAnimation, setOnHeartAnimation] = useState(false)
   const setIsCartModalOpen = useSetRecoilState(MainCartModalState)
   const deleteFavor = useDeleteFavorite()
-  const favoriteId: number[] = useRecoilValue(MainCartFavoriteId)
+
   const navigate = useNavigate()
   const { fireToast } = useToast()
   const setDetail = useSetRecoilState(ItemDetail)
@@ -42,6 +43,7 @@ function CartAndHeart({ productId, isFavorite }: PropsType) {
       navigate('signin')
       return
     }
+    // throttle 구현 해보기
     setTimeout(() => {
       if (!onHeartAnimation) {
         addFavorite(productId)
@@ -52,21 +54,12 @@ function CartAndHeart({ productId, isFavorite }: PropsType) {
       deleteFavor(productId)
     }
   }
-  const changeWindowWidth = () => {
-    setWindowWidth(window.innerWidth)
-  }
 
   useEffect(() => {
-    window.addEventListener('resize', changeWindowWidth)
     if (isFavorite === 1) {
       setOnHeartAnimation(true)
     }
   }, [isFavorite])
-  useEffect(() => {
-    if (favoriteId.includes(productId)) {
-      setOnHeartAnimation((prev) => (prev = true))
-    }
-  }, [favoriteId])
 
   const ClickCart = () => {
     if (!user) {

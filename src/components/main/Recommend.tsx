@@ -1,19 +1,11 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useRecoilValue } from 'recoil'
+import { CurrentInnerWidth } from '../../store/currentInnerWidth'
 import { RecommendSkeleton } from '../common/ui/Skeleton'
 import { useGetRecommendProduct } from './hooks/useRecommend'
-
 import RecommendBanner from './recommend/RecommendBanner'
 
 const Recommend = () => {
-  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
-
-  const changeWindowWidth = () => {
-    setWindowWidth(window.innerWidth)
-  }
-  useEffect(() => {
-    window.addEventListener('resize', changeWindowWidth)
-  }, [])
-
+  const windowWidth = useRecoilValue(CurrentInnerWidth)
   const { data: recommendProductLists, isFetching } = useGetRecommendProduct()
   return (
     <div>

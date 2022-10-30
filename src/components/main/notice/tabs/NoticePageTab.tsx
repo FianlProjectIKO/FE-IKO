@@ -17,7 +17,7 @@ function NoticePageTab() {
   }
   const selectOptionHandler = (title: string) => {
     setOptionName(title)
-    setIsOpen((prev) => (prev = false))
+    setIsOpen(false)
   }
 
   useEffect(() => {

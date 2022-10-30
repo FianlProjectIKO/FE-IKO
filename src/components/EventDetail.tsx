@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import CardTemplate from './common/ui/CardTemplate'
 import PageLayout from './common/ui/PageLayout'
-import { useGetDetailEvent } from './main/hooks/useEventLists'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { useAddCoupon } from './event/hooks/useAddCoupon'
 import { EventDetailSkeleton } from './common/ui/Skeleton'
+import { useAddCoupon } from './event/hooks/useAddCoupon'
+import { useGetDetailEvent } from './main/hooks/useEventLists'
 import { EventDetailResponseType } from './main/types/eventTypes'
-const img =
-  'https://user-images.githubusercontent.com/97086762/192783636-f77a8dd9-02b0-4044-a526-47fcd7a1353c.png'
 
 function EventDetail() {
   const navigate = useNavigate()
@@ -28,7 +26,7 @@ function EventDetail() {
       const year = time.getFullYear()
       const month = time.getMonth()
       const day = time.getDate()
-      setStartTime((prev) => (prev = `${year}년 ${month}월 ${day}일`))
+      setStartTime(`${year}년 ${month}월 ${day}일`)
     }
   }, [detailEvent])
   return (
@@ -39,7 +37,7 @@ function EventDetail() {
         ) : (
           detailEvent &&
           detailEvent.map((item: EventDetailResponseType) => (
-            <div>
+            <div key={item.imageUrl}>
               <div className="flex items-center py-4 border-t-[1px] border-solid">
                 <div className="font-[500] ml-10 mr-28">제목</div>
                 <div className="font-[500]">{item.eventTitle}</div>

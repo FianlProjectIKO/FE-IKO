@@ -1,9 +1,7 @@
 import Card from '../common/Card'
-import { CardContainerPropsType, ProductPropsType, ProductResponseType } from './types/productTypes'
-import Pagination from './common/Pagination'
 import { ProductMainSkeleton, ProductNewSkeleton } from '../common/ui/Skeleton'
-
-
+import Pagination from './common/Pagination'
+import { CardContainerPropsType, ProductPropsType, ProductResponseType } from './types/productTypes'
 
 const CardContainer = ({
   data,
@@ -49,7 +47,7 @@ const CardContainer = ({
           {productLists && productLists[0] && (
             <Pagination
               currentPage={allProductCurrentPage as number}
-              setCurrentPage={setAllProductCurrentPage as (param: number) => void}
+              setCurrentPage={setAllProductCurrentPage as () => void}
               allCount={productLists[0].totalCount}
               divide={9}
             />
@@ -85,7 +83,7 @@ const CardContainer = ({
           {productLists?.length && (
             <Pagination
               currentPage={newProductCurrentPage as number}
-              setCurrentPage={setNewProductCurrentPage as (param: number) => void}
+              setCurrentPage={setNewProductCurrentPage as () => void}
               allCount={productLists?.length}
               divide={8}
             />

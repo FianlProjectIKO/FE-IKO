@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import CartAndHeart from './CartAndHeart'
-import { SubtractIcon } from './util/Icon'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ColorAndImage, ProductPropsType } from '../main/types/productTypes'
 
+import { ColorAndImage, ProductPropsType } from '../main/types/productTypes'
+import CartAndHeart from './CartAndHeart'
+import Img from './Img'
+import { SubtractIcon } from './util/Icon'
 interface PropsType extends ProductPropsType {
   idx: number
   isNew?: boolean
   needsRank?: boolean
 }
 
-const Card = ({
+const Card: React.FC<PropsType> = ({
   idx,
   series,
   price,
@@ -21,37 +22,14 @@ const Card = ({
   productId,
   isFavorite,
   needsRank
-}: PropsType) => {
+}) => {
+  const windowWidth = window.innerWidth
   const navigate = useNavigate()
   const [viewImg, setViewImg] = useState<string>(colorAndImage[0]?.imageUrl)
-  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
-  const [commaPrice, setCommaPrice] = useState({
-    price: '',
-    discount: ''
-  })
-
-  const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    e.currentTarget.src = '/assets/errorImage.png'
-  }
-
-  const changeWindowWidth = () => {
-    setWindowWidth(window.innerWidth)
-  }
 
   const changeImageHandler = (_: React.MouseEvent<HTMLDivElement, MouseEvent>, idx: number) => {
     setViewImg(colorAndImage[idx]?.imageUrl)
   }
-
-  useEffect(() => {
-    setCommaPrice({
-      ...commaPrice,
-      price: Number((price * (1 - discount / 100)).toFixed(0)).toLocaleString(),
-      discount: price.toLocaleString()
-    })
-  }, [price, discount])
-  useEffect(() => {
-    window.addEventListener('resize', changeWindowWidth)
-  }, [])
 
   return (
     <>
@@ -80,10 +58,9 @@ const Card = ({
           <></>
         )}
         <span className="relative">
-          <img
+          <Img
             onClick={() => navigate(`/product/${productId}`)}
-            src={viewImg && viewImg}
-            onError={(e) => handleImgError(e)}
+            src={viewImg}
             alt="プロダクトイメージ"
             className=" bg-origin-content cursor-pointer rounded-md w-[160px] h-[160px] md:w-[260px] md:h-[255px] mx-auto"
           />
@@ -134,10 +111,13 @@ const Card = ({
           <div className=" text-[14px] md:text-[18px] font-[600]">{series}</div>
           <div className="flex justify-start items-center my-[5px]">
             <div className="mr-2 md:mr-4 font-[700] text-[14px] text-lenssisDeepGray md:text-[16px]">
-              {commaPrice.discount}円
+              {Number(price * (1 - discount / 100))
+                .toLocaleString()
+                .slice(0, 5)}
+              円
             </div>
             <div className="text-lenssisGray line-through font-[700] text-[12px] md:text-[14px]">
-              {commaPrice.price}円
+              {Number(price).toLocaleString()}円
             </div>
           </div>
           <div className="flex justify-start mt-[5px] w-full overflow-hidden flex-wrap">
