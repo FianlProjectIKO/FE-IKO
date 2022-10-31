@@ -6,22 +6,16 @@ import 'swiper/components/navigation/navigation.scss'
 import 'swiper/components/pagination/pagination.scss'
 import 'swiper/components/scrollbar/scrollbar.scss'
 import { useGetBanner } from './main/hooks/useBanner'
+import { useRecoilValue } from 'recoil'
+import { CurrentInnerWidth } from '../store/currentInnerWidth'
 
 const Banner = () => {
   const prevRef = useRef<HTMLButtonElement>(null)
   const nextRef = useRef<HTMLButtonElement>(null)
   const [swiperSetting, setSwiperSetting] = useState<Swiper | null>(null)
-  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
-
-  const changeWindowWidth = useCallback(() => {
-    setWindowWidth(window.innerWidth)
-  }, [window.innerWidth])
+  const windowWidth = useRecoilValue(CurrentInnerWidth)
 
   const { data: bannerList } = useGetBanner(1)
-
-  useEffect(() => {
-    window.addEventListener('resize', changeWindowWidth)
-  }, [])
 
   SwiperCore.use([Navigation, Pagination, Autoplay])
   useEffect(() => {

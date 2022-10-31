@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { NoticeDetailSkeleton } from '../../../common/ui/Skeleton'
-import Pagination from '../../common/Pagination'
-import { useGetAllNotice } from '../../hooks/useNotice'
-import { BoardMainList } from '../../types/noticeTypes'
-import MobileNotice from '../utils/MobileNotice'
-import WebNotice from '../utils/WebNotice'
+import { NoticeDetailSkeleton } from '../../components/common/ui/Skeleton'
+import Pagination from '../../components/main/common/Pagination'
+import { useGetAllNotice } from '../../components/main/hooks/useNotice'
+import MobileNotice from '../../components/main/notice/utils/MobileNotice'
+import WebNotice from '../../components/main/notice/utils/WebNotice'
+import { BoardMainList } from '../../components/main/types/noticeTypes'
 
 function AboutPoint() {
   const [currentPage, setCurrentPage] = useState(1)

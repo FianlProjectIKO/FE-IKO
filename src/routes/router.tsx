@@ -6,13 +6,13 @@ import MonthlyFavorite from '../components/favorite/MonthlyFavorite'
 import OneDayFavorite from '../components/favorite/OneDayFavorite'
 import MobileBottomNav from '../components/footer/bottom-navigation/MobileBottomNav'
 import Header from '../components/header/Header'
-import AboutCredit from '../components/main/notice/pages/AboutCredit'
-import AboutEtc from '../components/main/notice/pages/AboutEtc'
-import AboutMustRead from '../components/main/notice/pages/AboutMustRead'
-import AboutPoint from '../components/main/notice/pages/AboutPoint'
-import AboutProduct from '../components/main/notice/pages/AboutProduct'
-import AboutRefund from '../components/main/notice/pages/AboutRefund'
-import AboutShip from '../components/main/notice/pages/AboutShip'
+import AboutCredit from '../pages/noticePages/AboutCredit'
+import AboutEtc from '../pages/noticePages/AboutEtc'
+import AboutMustRead from '../pages/noticePages/AboutMustRead'
+import AboutPoint from '../pages/noticePages/AboutPoint'
+import AboutProduct from '../pages/noticePages/AboutProduct'
+import AboutRefund from '../pages/noticePages/AboutRefund'
+import AboutShip from '../pages/noticePages/AboutShip'
 import EditProfile from '../components/mypage/myprofile/EditProfile'
 import EditSecret from '../components/mypage/myprofile/EditSecret'
 import MyAfter from '../components/mypage/tabs/MyAfter'
@@ -48,15 +48,7 @@ const Router = () => {
       {isShowSideBar && <MobileSideBar />}
       <Header />
       <Routes>
-        <Route path="/" element={<Main />}>
-          <Route index element={<AboutMustRead />} />
-          <Route path="aboutship" element={<AboutShip />} />
-          <Route path="aboutrefund" element={<AboutRefund />} />
-          <Route path="aboutcredit" element={<AboutCredit />} />
-          <Route path="aboutproduct" element={<AboutProduct />} />
-          <Route path="aboutpoint" element={<AboutPoint />} />
-          <Route path="etc" element={<AboutEtc />} />
-        </Route>
+        <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/product/:id" element={<ProductDetail />} />

@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react'
-import { NoticeDetailSkeleton } from '../../../common/ui/Skeleton'
-import Pagination from '../../common/Pagination'
-import { useGetAllNotice } from '../../hooks/useNotice'
-import { BoardMainList } from '../../types/noticeTypes'
-import MobileNotice from '../utils/MobileNotice'
-import WebNotice from '../utils/WebNotice'
+import { NoticeDetailSkeleton } from '../../components/common/ui/Skeleton'
+import Pagination from '../../components/main/common/Pagination'
+import { useGetAllNotice } from '../../components/main/hooks/useNotice'
+import MobileNotice from '../../components/main/notice/utils/MobileNotice'
+import WebNotice from '../../components/main/notice/utils/WebNotice'
+import { BoardMainList } from '../../components/main/types/noticeTypes'
 
-function AboutEtc() {
+function MustRead() {
   const [currentPage, setCurrentPage] = useState(1)
   const [boardList, setBoardList] = useState<BoardMainList[]>([])
   const divideCount = 10
   const indexOfEnd = currentPage * divideCount
   const indexOfStart = indexOfEnd - divideCount
-  const { data, isFetching } = useGetAllNotice(6)
+  const { data, isFetching } = useGetAllNotice(0)
   useEffect(() => {
     if (data) {
       setBoardList(data?.boardMainList?.slice(indexOfStart, indexOfEnd))
@@ -24,7 +24,7 @@ function AboutEtc() {
       {isFetching ? (
         <NoticeDetailSkeleton />
       ) : data && data?.totalCount === 0 ? (
-        <div className="text-center text-[24px] mt-10 text-lenssisDark">등록된 내용이 없습니다</div>
+        <div className="text-center text-[24px] mt-2 text-lenssisDark">등록된 내용이 없습니다</div>
       ) : (
         boardList.map((item: BoardMainList) => (
           <div key={item.boardId}>
@@ -47,4 +47,4 @@ function AboutEtc() {
   )
 }
 
-export default AboutEtc
+export default MustRead

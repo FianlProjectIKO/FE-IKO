@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useRecoilValue } from 'recoil'
+import { CurrentInnerWidth } from '../../store/currentInnerWidth'
 
 import { ColorAndImage, ProductPropsType } from '../main/types/productTypes'
 import CartAndHeart from './CartAndHeart'
@@ -23,7 +25,7 @@ const Card: React.FC<PropsType> = ({
   isFavorite,
   needsRank
 }) => {
-  const windowWidth = window.innerWidth
+  const windowWidth = useRecoilValue(CurrentInnerWidth)
   const navigate = useNavigate()
   const [viewImg, setViewImg] = useState<string>(colorAndImage[0]?.imageUrl)
 
